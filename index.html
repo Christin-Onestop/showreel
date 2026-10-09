@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recipe Finder</title>
-    <link rel="stylesheet" href="style.css" class="css">
+    <title>Showreel · Tyt 前端作品集</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -14,83 +17,85 @@
     />
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1><i class="fa-solid fa-utensils"></i>Recipe Finder</h1>
-            <p>Find delicious recipe from around the world</p>
-        </header>
+    <nav class="nav">
+        <a class="nav-logo" href="#top">Showreel</a>
+        <!-- <div class="nav-links">
+            <a href="#works">作品</a>
+            <a href="#about">关于</a>
+            <a class="nav-cta" href="#works">浏览项目</a>
+        </div> -->
+    </nav>
 
-        <p class="api-link">Data from <a href="https://www.themealdb.com/api.php">The MealDB 🧑‍🍳</a></p>
-        <div class="search-container">
-            <input type="text" id="search-input" placeholder="Search for meals or keywords">
-            <button id="search-btn">Search</button>
+    <header class="hero" id="top">
+        <span class="hero-dot" aria-hidden="true"></span>
+        <h1>Tyt的前端网页作品集</h1>
+        <p class="hero-subtitle">
+            这是我的前端网页作品，点击卡片即可打开在线演示，探索每一个项目交互与实现<br>
+        </p>
+        <!-- <div class="hero-actions">
+            <a class="btn btn-primary" href="#works">浏览作品</a>
+            <a class="btn btn-secondary" href="#about">了解更多</a>
         </div>
+        <p class="hero-note">无需登录 · 直接预览在线演示</p> -->
+    </header>
 
-        <div id="error-container" class="hidden">
-            <p>No meals found. Try another input.</p>
-        </div>
-
-        <div id="result-heading"></div>
-
-        <div id="meals" class="meals-container">
-            <!-- <div class="meal" data-meal-id="52777">
-            <img src="https://www.themealdb.com/images/media/meals/wvqpwt1468339226.jpg" alt="Mediterranean Pasta Salad">
-                    <div class="meal-info">
-                        <h3 class="meal-title">Mediterranean Pasta Salad</h3>
-                        <div class="meal-category">Seafood</div>
+    <main>
+        <section class="works" id="works">
+            <h2>作品一览</h2>
+            <div id="meals" class="works-grid">
+                <article class="work-card meal" data-url="https://web-developing-beryl.vercel.app/">
+                    <div class="work-preview">
+                        <img src="./img/Register.png" alt="Register Form 预览">
                     </div>
-            </div>
-            <div class="meal" data-meal-id="52777">
-            <img src="https://www.themealdb.com/images/media/meals/wvqpwt1468339226.jpg" alt="Mediterranean Pasta Salad">
-                    <div class="meal-info">
-                        <h3 class="meal-title">Mediterranean Pasta Salad</h3>
-                        <div class="meal-category">Seafood</div>
+                    <div class="work-body">
+                        <h3><span class="step">1</span> Register Form</h3>
+                        <p>校验注册流程，练习输入状态与提交反馈</p>
                     </div>
-            </div>
-            <div class="meal" data-meal-id="52777">
-            <img src="https://www.themealdb.com/images/media/meals/wvqpwt1468339226.jpg" alt="Mediterranean Pasta Salad">
-                    <div class="meal-info">
-                        <h3 class="meal-title">Mediterranean Pasta Salad</h3>
-                        <div class="meal-category">Seafood</div>
+                </article>
+
+                <article class="work-card meal" data-url="https://quiz-game-ten-ruddy.vercel.app/">
+                    <div class="work-preview">
+                        <img src="./img/QuizGame.png" alt="Quiz Time 预览">
                     </div>
-            </div> -->
-        </div>
+                    <div class="work-body">
+                        <h3><span class="step">2</span> Quiz Time</h3>
+                        <p>计分问答交互，练习选项切换与结果展示</p>
+                    </div>
+                </article>
 
-        <div id="meal-details" class="hidden">
-            <button id="back-btn"><i class="fa-solid fa-arrow-left"></i>Back to recipes</button>
-            <div class="meal-details-content">
-                <!-- <img src="https://www.themealdb.com/images/media/meals/wvqpwt1468339226.jpg" alt="Mediterranean Pasta Salad" class="meal-details-img">
-                <h2 class="meal-details-title">Mediterranean Pasta Salad</h2>
-                <div class="meal-details-category">
-                    <span>Seafood</span>
-                </div>
-                <div class="meal-details-instructions">
-                    <h3>Instructions</h3>
-                    <p>Bring a large saucepan of salted water to the boil
-                    Add the pasta, stir once and cook for about 10 minutes or as directed on the packet.Meanwhile, wash the tomatoes and cut into quarters. Slice the olives. Wash the basil.</p>
-                </div>
-                <div class="meal-details-ingredients">
-                    <h3>Ingredients</h3>
-                    <ul class="ingredients-list">  
-                        <li><i class="fas fa-check-circle"></i> 200 g mozzarella balls</li>
-                        <li><i class="fas fa-check-circle"></i> 250 g baby plum tomatoes</li>           
-                        <li><i class="fas fa-check-circle"></i> 1  bunch fresh basil</li>     
-                        <li><i class="fas fa-check-circle"></i> 350 g farfalle</li>       
-                        <li><i class="fas fa-check-circle"></i> 3  tablespoons extra virgin olive oil</li>          
-                        <li><i class="fas fa-check-circle"></i> 40 g Green Olives</li>          
-                        <li><i class="fas fa-check-circle"></i> 200 g tuna</li>            
-                        <li><i class="fas fa-check-circle"></i> to taste salt</li>            
-                        <li><i class="fas fa-check-circle"></i> to taste pepper</li>            
-                    </ul>
-                </div>
-                    <a href="https://www.youtube.com/watch?v=e52IL8zYmaE" target="_blank" class="youtube-link">
-                        <i class="fab fa-youtube"></i> Watch Video
-                    </a>
-                </div> -->
+                <article class="work-card meal" data-url="https://recipe-finder-eta-rust.vercel.app/">
+                    <div class="work-preview">
+                        <img src="./img/RecipeFinder.png" alt="Recipe Finder 预览">
+                    </div>
+                    <div class="work-body">
+                        <h3><span class="step">3</span> Recipe Finder</h3>
+                        <p>调用食谱 API，练习搜索列表与详情结构</p>
+                    </div>
+                </article>
+
+                <!-- <article class="work-card work-card-soon" aria-disabled="true">
+                    <div class="work-preview work-preview-soon">
+                        <i class="fa-solid fa-arrow-down"></i>
+                    </div>
+                    <div class="work-body">
+                        <h3><span class="step">4</span> Coming Soon</h3>
+                        <p>下一批练习整理中，演示链接会持续补充</p>
+                    </div>
+                </article> -->
             </div>
-        </div>
+        </section>
 
-    </div>
+        <section class="about" id="about">
+            <h2>关于</h2>
+            <p>
+                每个卡片对应一个独立部署的小项目，用来记录从布局、组件到接口调用的练习过程。
+            </p>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Tyt 前端网页作品集</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
